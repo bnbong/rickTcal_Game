@@ -1,0 +1,26 @@
+[project]
+name = "rickTcal_Game"
+version = "0.1.0"
+description = "교주 몰래 춤추기 게임"
+authors = [
+    {name = "bnbong", email = "bbbong9@gmail.com"},
+]
+dependencies = ["pygame>=2.6.1"]
+requires-python = ">=3.12"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+distribution = true
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+    "isort>=6.0.0",
+    "mypy>=1.15.0",
+]
