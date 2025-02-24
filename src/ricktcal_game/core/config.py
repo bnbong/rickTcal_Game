@@ -5,7 +5,7 @@ FPS = 60
 GAUGE_DECREASE = 0.1
 GAUGE_INCREASE = 0.5
 SKILL_CHARGE = 30
-GRACE_PERIOD = 0.2  # 0.5초의 유예 시간
+GRACE_PERIOD = 0.3  # 0.5초의 유예 시간
 
 # 위치 설정
 GYOJU_POS = (400, 100)  # 화면 상단 중앙

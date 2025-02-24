@@ -2,3 +2,5 @@
 
 set -e
 set -x
+
+python -m ricktcal_game
