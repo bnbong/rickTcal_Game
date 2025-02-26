@@ -1,13 +1,15 @@
-import pygame
-from ..core.config import GYOJU_POS
 import random
+
+import pygame
+
+# from ..core.config import GYOJU_POS
 
 
 class GyoJu:
     def __init__(self):
         self.facing_away = False
         self.next_turn_time = 0
-        self.position = GYOJU_POS
+        # self.position = GYOJU_POS
 
     def update(self, current_time):
         if current_time > self.next_turn_time:

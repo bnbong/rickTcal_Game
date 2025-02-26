@@ -5,7 +5,7 @@ description = "교주 몰래 춤추기 게임"
 authors = [
     {name = "bnbong", email = "bbbong9@gmail.com"},
 ]
-dependencies = ["pygame>=2.6.1"]
+dependencies = ["pygame>=2.6.1", "pillow>=11.1.0"]
 requires-python = ">=3.12"
 readme = "README.md"
 license = {text = "MIT"}
