@@ -1,7 +1,5 @@
 import random
 
-import pygame
-
 # from ..core.config import GYOJU_POS
 
 

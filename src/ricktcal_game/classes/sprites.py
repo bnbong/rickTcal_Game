@@ -1,5 +1,4 @@
-import io
-from pathlib import Path
+import os
 
 import pygame
 from PIL import Image, ImageSequence
@@ -8,23 +7,54 @@ from ..core.config import *
 
 
 class SpriteManager:
-    def __init__(self, position_manager):
+    def __init__(self, position_manager, preload=False):
         self.position_manager = position_manager
 
-        self.erpin_idle = self.load_animation_frames("erpin_idle.gif")
-        self.erpin_dance = self.load_animation_frames("erpin_dance_1.gif")
-        self.erpin_skill = self.load_animation_frames("erpin_skill.gif")
+        # 캐릭터 타입별 애니메이션 프레임 저장소
+        self.animations = {"teachers": {}, "students": {}}
 
-        self.sherum_front = self.load_animation_frames(
-            "sherum_front.gif", flip=True, is_teacher=True
-        )
-        self.sherum_back = self.load_animation_frames(
-            "sherum_back.gif", is_teacher=True
-        )
+        if preload:
+            self._preload_animations()
+
+    def _preload_animations(self):
+        """모든 애니메이션 프레임 사전 로드"""
+        try:
+            # 학생 캐릭터 애니메이션 로드
+            self.animations["students"]["erpin"] = {
+                "idle": self.load_animation_frames("erpin_idle.gif"),
+                "dance": self.load_animation_frames("erpin_dance_1.gif"),
+                "skill": self.load_animation_frames("erpin_skill.gif"),
+            }
+
+            # TODO : 죠안 애니메이션 추가
+            self.animations["students"]["joanne"] = {
+                "idle": [],
+                "dance": [],
+                "skill": [],
+            }
+
+            # 선생님 캐릭터 애니메이션 로드
+            self.animations["teachers"]["sherum"] = {
+                "front": self.load_animation_frames(
+                    "sherum_front.gif", flip=True, is_teacher=True
+                ),
+                "back": self.load_animation_frames("sherum_back.gif", is_teacher=True),
+            }
+
+            print("모든 애니메이션 프레임 로드 완료")
+        except Exception as e:
+            print(f"애니메이션 로드 오류: {e}")
 
     def load_animation_frames(self, filename, flip=False, is_teacher=False):
         try:
             gif_path = f"src/ricktcal_game/resources/animations/{filename}"
+
+            if not os.path.exists(gif_path):
+                print(f"애니메이션 파일 없음: {filename}")
+                # 더미 프레임 생성하여 반환
+                dummy = pygame.Surface((ENTITY_WIDTH, ENTITY_HEIGHT), pygame.SRCALPHA)
+                dummy.fill((200, 200, 200, 128))
+                return [dummy]
 
             pil_img = Image.open(gif_path)
             frames = []
@@ -38,15 +68,14 @@ class SpriteManager:
                 # 크기 조정 (선생님은 더 큰 크기 적용)
                 if is_teacher:
                     pygame_image = pygame.transform.scale(
-                        pygame_image, (SHERUM_WIDTH, SHERUM_HEIGHT)
+                        pygame_image, (TEACHER_DEFAULT_WIDTH, TEACHER_DEFAULT_HEIGHT)
                     )
                 else:
                     pygame_image = pygame.transform.scale(
-                        pygame_image, (ENTITY_WIDTH, ENTITY_HEIGHT)
+                        pygame_image, (STUDENT_DEFAULT_WIDTH, STUDENT_DEFAULT_HEIGHT)
                     )
 
-                # 필요한 경우 이미지 뒤집기
-                if flip:
+                if flip:  # 설정 시 캐릭터 모션이 변하면 수직으로 뒤집어 뒤를 돌게 함
                     pygame_image = pygame.transform.flip(pygame_image, True, False)
 
                 frames.append(pygame_image)
@@ -62,46 +91,63 @@ class SpriteManager:
             dummy = pygame.Surface((ENTITY_WIDTH, ENTITY_HEIGHT), pygame.SRCALPHA)
             return [dummy]
 
-    def draw_erpin(self, screen, erpin):
-        now = pygame.time.get_ticks()
-
-        if erpin.using_skill:
-            frames = self.erpin_skill
-        elif erpin.dancing:
-            frames = self.erpin_dance
+    def draw_entity(self, screen, entity):
+        """엔티티 타입에 따라 적절한 렌더링 메서드 호출"""
+        if entity.entity_type == "teacher":
+            self.draw_teacher(screen, entity)
+        elif entity.entity_type == "student":
+            self.draw_student(screen, entity)
         else:
-            frames = self.erpin_idle
+            print(f"알 수 없는 엔티티 타입: {entity.entity_type}")
 
-        # 프레임 리스트가 비어있지 않은지 확인
-        if not frames:
-            return
-
-        # 애니메이션 프레임 업데이트
-        if now - erpin.last_update > ANIMATION_FRAME_RATE * 1000:
-            erpin.last_update = now
-            erpin.animation_frame = (erpin.animation_frame + 1) % len(frames)
-
-        # 유효한 인덱스인지 확인
-        if 0 <= erpin.animation_frame < len(frames):
-            # position.json에서 위치 가져오기
-            erpin_pos = self.position_manager.get_position("erpin")
-            screen.blit(frames[erpin.animation_frame], erpin_pos)
-
-    def draw_sherum(self, screen, sherum):
+    def draw_teacher(self, screen, teacher):
+        """선생님 타입 엔티티 렌더링"""
         now = pygame.time.get_ticks()
-        frames = self.sherum_back if sherum.facing_away else self.sherum_front
 
-        # 프레임 리스트가 비어있지 않은지 확인
+        frames = None
+        if teacher.name == "sherum":
+            frames = (
+                self.animations["teachers"]["sherum"]["back"]
+                if teacher.facing_away
+                else self.animations["teachers"]["sherum"]["front"]
+            )
+        # TODO : 이후 버전에 다른 선생님 (네르 등) 이 추가되면 여기에 추가
+
         if not frames:
             return
 
-        # 애니메이션 프레임 업데이트
-        if now - sherum.last_update > ANIMATION_FRAME_RATE * 1000:
-            sherum.last_update = now
-            sherum.animation_frame = (sherum.animation_frame + 1) % len(frames)
+        if now - teacher.last_update > ANIMATION_FRAME_RATE * 1000:
+            teacher.last_update = now
+            teacher.animation_frame = (teacher.animation_frame + 1) % len(frames)
 
-        # 유효한 인덱스인지 확인
-        if 0 <= sherum.animation_frame < len(frames):
-            # position.json에서 위치 가져오기
-            sherum_pos = self.position_manager.get_position("sherum")
-            screen.blit(frames[sherum.animation_frame], sherum_pos)
+        if 0 <= teacher.animation_frame < len(frames):
+            teacher_pos = self.position_manager.get_position(teacher.name)
+
+            # 바운스 오프셋 적용 (y 좌표에만 적용)
+            adjusted_pos = (teacher_pos[0], teacher_pos[1] + teacher.bounce_offset)
+
+            screen.blit(frames[teacher.animation_frame], adjusted_pos)
+
+    def draw_student(self, screen, student):
+        """학생 타입 엔티티 렌더링"""
+        now = pygame.time.get_ticks()
+
+        anim_type = "idle"
+        if student.using_skill:
+            anim_type = "skill"
+        elif student.dancing:
+            anim_type = "dance"
+
+        try:
+            frames = self.animations["students"][student.name][anim_type]
+        except KeyError:
+            print(f"애니메이션 없음: {student.name}/{anim_type}")
+            frames = [self._create_dummy_frame()]
+
+        if now - student.last_update > ANIMATION_FRAME_RATE * 1000:
+            student.last_update = now
+            student.animation_frame = (student.animation_frame + 1) % len(frames)
+
+        if 0 <= student.animation_frame < len(frames):
+            student_pos = self.position_manager.get_position(student.name)
+            screen.blit(frames[student.animation_frame], student_pos)

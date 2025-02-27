@@ -1,17 +1,10 @@
-import pygame
-
+from ..classes.student_entity import StudentEntity
 from ..core.config import ANIMATION_FRAME_RATE, DEFAULT_ERPIN_POS
 
 
-class Erpin:
-    def __init__(self):
-        self.dancing = False
-        self.using_skill = False
-        self.last_update = 0
-        self.animation_frame = 0
+class Erpin(StudentEntity):
+    """에르핀 캐릭터 클래스"""
 
-    def update_state(self, dancing=None, using_skill=None):
-        if dancing is not None:
-            self.dancing = dancing
-        if using_skill is not None:
-            self.using_skill = using_skill
+    def __init__(self):
+        super().__init__()
+        self.name = "erpin"

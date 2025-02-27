@@ -1,16 +1,21 @@
+from ..core.config import (
+    SCENE_GAMEOVER,
+    SCENE_LOADING,
+    SCENE_PLAYING,
+    SCENE_SETTINGS,
+    SCENE_TITLE,
+)
 from .gameover import GameOverScene
-from .loading import LoadingScene
+from .settings import SettingsScene
 from .title import TitleScene
 
-# 씬 ID 상수 정의
-SCENE_TITLE = "menu"
-SCENE_LOADING = "loading"
-SCENE_PLAYING = "playing"
-SCENE_GAMEOVER = "game_over"
+SCENE_TITLE = SCENE_TITLE
+SCENE_PLAYING = SCENE_PLAYING
+SCENE_GAMEOVER = SCENE_GAMEOVER
+SCENE_SETTINGS = SCENE_SETTINGS
 
-# 씬 클래스 맵핑
 SCENE_CLASSES = {
     SCENE_TITLE: TitleScene,
-    SCENE_LOADING: LoadingScene,
     SCENE_GAMEOVER: GameOverScene,
+    SCENE_SETTINGS: SettingsScene,
 }
