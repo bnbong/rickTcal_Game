@@ -22,18 +22,19 @@ class PositionManager:
             self.positions = {
                 "erpin": {"x": 600, "y": 50},
                 "sherum": {"x": 100, "y": 300},
+                "joanne": {"x": 300, "y": 50},
             }
 
     def update_student_positions(self):
         """학생 캐릭터들의 위치를 자동으로 계산"""
-        base_x = 450
+        base_x = 600  # joanne 기준 오른쪽, erpin 기준 왼쪽 (더 오른쪽으로)
         base_y = 50
-        spacing_x = 100  # 학생 간 가로 간격
+        spacing_x = -520  # 더 넓은 간격으로 겹침 방지
 
-        student_names = ["erpin", "joanne"]
+        student_names = ["joanne", "erpin"]
 
         for i, name in enumerate(student_names):
-            # 각 학생의 위치 계산 (에르핀은 가장 오른쪽, 죠안은 그 왼쪽)
+            # 각 학생의 위치 계산 (죠안이 왼쪽, 에르핀이 오른쪽)
             pos_x = base_x + (i * spacing_x)
 
             if name not in self.positions:

@@ -26,11 +26,13 @@ class SpriteManager:
                 "skill": self.load_animation_frames("erpin_skill.gif"),
             }
 
-            # TODO : 죠안 애니메이션 추가
+            # 죠안 애니메이션 추가
             self.animations["students"]["joanne"] = {
-                "idle": [],
-                "dance": [],
-                "skill": [],
+                "idle_1": self.load_animation_frames("joanne_idle_1.gif"),
+                "idle_2": self.load_animation_frames("joanne_idle_2.gif"),
+                "idle_3": self.load_animation_frames("joanne_idle_3.gif"),
+                "dance_1": self.load_animation_frames("joanne_dance_1.gif"),
+                "dance_2": self.load_animation_frames("joanne_dance_2.gif"),
             }
 
             # 선생님 캐릭터 애니메이션 로드
@@ -132,11 +134,16 @@ class SpriteManager:
         """학생 타입 엔티티 렌더링"""
         now = pygame.time.get_ticks()
 
-        anim_type = "idle"
-        if student.using_skill:
-            anim_type = "skill"
-        elif student.dancing:
-            anim_type = "dance"
+        # joanne은 animation_type 속성 사용, erpin은 기존 방식
+        if student.name == "joanne":
+            anim_type = getattr(student, "animation_type", "idle_1")
+        else:
+            if student.using_skill:
+                anim_type = "skill"
+            elif student.dancing:
+                anim_type = "dance"
+            else:
+                anim_type = "idle"
 
         try:
             frames = self.animations["students"][student.name][anim_type]
@@ -150,4 +157,11 @@ class SpriteManager:
 
         if 0 <= student.animation_frame < len(frames):
             student_pos = self.position_manager.get_position(student.name)
-            screen.blit(frames[student.animation_frame], student_pos)
+            # joanne의 idle_2만 좌우 반전
+            if student.name == "joanne" and anim_type == "idle_2":
+                flipped_frame = pygame.transform.flip(
+                    frames[student.animation_frame], True, False
+                )
+                screen.blit(flipped_frame, student_pos)
+            else:
+                screen.blit(frames[student.animation_frame], student_pos)

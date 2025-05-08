@@ -98,6 +98,28 @@ class Renderer:
                 exclamation_pos = (sherum_pos[0] + 300, sherum_pos[1] + 100)
                 self.draw_exclamation(exclamation_pos)
 
+        # 인게임 경과 시간 표시 (우측 상단)
+        play_time_str = "00:00"
+        if (
+            hasattr(self.game, "play_start_ticks")
+            and self.game.play_start_ticks is not None
+            and self.game.state_manager.game_state == SCENE_PLAYING
+        ):
+            elapsed_ms = pygame.time.get_ticks() - self.game.play_start_ticks
+            elapsed_sec = elapsed_ms // 1000
+            minutes = elapsed_sec // 60
+            seconds = elapsed_sec % 60
+            play_time_str = f"{minutes:02d}:{seconds:02d}"
+        if hasattr(self.game, "font_manager"):
+            time_text = self.game.font_manager.render_text(
+                f"경과 시간: {play_time_str}", "korean", "normal", (30, 30, 30)
+            )
+        else:
+            time_text = self.game.font.render(
+                f"Time: {play_time_str}", True, (30, 30, 30)
+            )
+        self.screen.blit(time_text, (SCREEN_WIDTH - 300, 30))
+
         self.render_ui()
 
     def render_ui(self):
