@@ -1,0 +1,167 @@
+{
+  "version": 1,
+  "background": {
+    "src": "bg/background.png",
+    "w": 1920,
+    "h": 1080
+  },
+  "sprites": {
+    "erpin_idle": {
+      "src": "sprites/erpin_idle.png",
+      "w": 617,
+      "h": 534,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "erpin_dance": {
+      "src": "sprites/erpin_dance.png",
+      "w": 751,
+      "h": 540,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "erpin_eat": {
+      "src": "sprites/erpin_eat.png",
+      "w": 629,
+      "h": 526,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "erpin_caught": {
+      "src": "sprites/erpin_caught.png",
+      "w": 673,
+      "h": 525,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "joanne_idle": {
+      "src": "sprites/joanne_idle.png",
+      "w": 544,
+      "h": 532,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "joanne_shocked": {
+      "src": "sprites/joanne_shocked.png",
+      "w": 523,
+      "h": 540,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "joanne_dance": {
+      "src": "sprites/joanne_dance.png",
+      "w": 621,
+      "h": 538,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "joanne_bread": {
+      "src": "sprites/joanne_bread.png",
+      "w": 487,
+      "h": 519,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "sherum_safe": {
+      "src": "sprites/sherum_safe.png",
+      "w": 713,
+      "h": 715,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "sherum_turning": {
+      "src": "sprites/sherum_turning.png",
+      "w": 706,
+      "h": 720,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "sherum_watching": {
+      "src": "sprites/sherum_watching.png",
+      "w": 669,
+      "h": 719,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "desk_long": {
+      "src": "sprites/desk_long.png",
+      "w": 1400,
+      "h": 303,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "desk_small": {
+      "src": "sprites/desk_small.png",
+      "w": 569,
+      "h": 258,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "bread_plate": {
+      "src": "sprites/bread_plate.png",
+      "w": 274,
+      "h": 166,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "papers": {
+      "src": "sprites/papers.png",
+      "w": 306,
+      "h": 223,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "ink": {
+      "src": "sprites/ink.png",
+      "w": 181,
+      "h": 172,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "ui_gauge_frame": {
+      "src": "sprites/ui_gauge_frame.png",
+      "w": 900,
+      "h": 142,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "ui_bread_icon": {
+      "src": "sprites/ui_bread_icon.png",
+      "w": 209,
+      "h": 207,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "ui_dance_icon": {
+      "src": "sprites/ui_dance_icon.png",
+      "w": 350,
+      "h": 346,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "ui_pause_icon": {
+      "src": "sprites/ui_pause_icon.png",
+      "w": 159,
+      "h": 178,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    },
+    "ui_label": {
+      "src": "sprites/ui_label.png",
+      "w": 307,
+      "h": 104,
+      "anchorX": 0.5,
+      "anchorY": 1.0
+    }
+  },
+  "gauge": {
+    "fillRect": {
+      "x": 90,
+      "y": 51,
+      "w": 721,
+      "h": 57
+    },
+    "fillColor": "#87d26b",
+    "trackColor": "#fdf5e0"
+  }
+}

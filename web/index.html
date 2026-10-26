@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <title>선새임 몰래 춤추기</title>
+    <meta name="description" content="트릭컬 리바이브 비공식 팬게임. 셰럼 선새임 몰래 에르핀을 춤추게 하세요." />
+    <meta name="theme-color" content="#10142a" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Jua 비차단 로드: 실패해도 시스템 폰트로 동작 -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+  </head>
+  <body>
+    <div id="stage" data-screen="loading">
+      <canvas id="game" aria-label="게임 화면"></canvas>
+
+      <button id="btn-pause" class="hit-pause" type="button" aria-label="일시정지"></button>
+
+      <div id="touch-controls">
+        <button id="btn-bread" class="touch-btn bread" type="button" aria-label="빵 먹기"><span>빵</span></button>
+        <button id="btn-dance" class="touch-btn dance" type="button" aria-label="춤추기 (누르는 동안)"><span>춤</span></button>
+      </div>
+
+      <section id="screen-loading" class="overlay" aria-live="polite">
+        <div class="panel small">
+          <p class="loading-text" id="loading-text">불러오는 중…</p>
+          <div class="progress"><div class="progress-bar" id="loading-bar"></div></div>
+        </div>
+      </section>
+
+      <section id="screen-title" class="overlay" hidden>
+        <div class="panel">
+          <h1>선새임 몰래 춤추기</h1>
+          <p class="subtitle">트릭컬 리바이브 비공식 팬게임</p>
+          <ul class="howto">
+            <li>스페이스(또는 춤 버튼)를 누르는 동안 춤춰요</li>
+            <li>셰럼 선새임이 이쪽을 보면 멈춰요!</li>
+            <li>Z(또는 빵 버튼)로 죠안이 준 빵을 먹고 흥을 회복해요 (2회)</li>
+          </ul>
+          <button id="btn-start" class="btn primary" type="button">수업 시작</button>
+          <p class="best">최고 점수 <strong id="title-best">0</strong></p>
+          <p class="note" id="asset-note" hidden></p>
+        </div>
+      </section>
+
+      <section id="screen-pause" class="overlay" hidden>
+        <div class="panel small">
+          <h2>잠깐 쉬는 시간</h2>
+          <div class="btn-row">
+            <button id="btn-resume" class="btn primary" type="button">계속</button>
+            <button id="btn-pause-title" class="btn" type="button">타이틀로</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-result" class="overlay" hidden>
+        <div class="panel">
+          <h2 id="result-title">들켰다…!</h2>
+          <dl class="stats">
+            <div><dt>점수</dt><dd id="result-score">0</dd></div>
+            <div><dt>버틴 시간</dt><dd id="result-time">0초</dd></div>
+            <div><dt>최고 점수</dt><dd id="result-best">0</dd></div>
+            <div><dt>최장 연속 춤</dt><dd id="result-streak">0초</dd></div>
+          </dl>
+          <p class="new-best" id="result-new-best" hidden>새 최고 기록!</p>
+          <p class="note" id="storage-note" hidden>최고 점수는 이 브라우저에 저장되지 않을 수 있어요</p>
+          <div class="btn-row">
+            <button id="btn-retry" class="btn primary" type="button">다시 도전</button>
+            <button id="btn-result-title" class="btn" type="button">타이틀로</button>
+          </div>
+        </div>
+      </section>
+
+      <div id="sound-ctrl" class="sound-ctrl">
+        <button id="btn-mute" class="btn tiny" type="button" aria-pressed="false">소리 켜짐</button>
+        <input id="volume" type="range" min="0" max="100" step="1" value="70" aria-label="볼륨" />
+      </div>
+
+      <p class="footer" id="footer">비공식 팬게임 · 원작 ⓒ EPIDGames</p>
+    </div>
+
+    <div id="rotate-hint" role="alert"><p>가로 화면으로 돌려주세요</p></div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,364 @@
+/* 레이아웃·HTML 오버레이 스타일 */
+:root {
+  --font: 'Jua', 'Gaegu', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  --ink: #2b2350;
+  --cream: #fffaf0;
+  --cream-2: #fbf4dc;
+  --sky: #7cc8f2;
+  --accent: #e8463c;
+  --brown: #4a2a1a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: #10142a;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  height: 100dvh;
+  font-family: var(--font);
+  color: var(--ink);
+}
+
+/* 16:9 letterbox 무대. 오버레이 글자는 무대 높이(cqh) 기준 */
+#stage {
+  position: relative;
+  width: min(100vw, 177.78vh);
+  width: min(100vw, 177.78dvh);
+  aspect-ratio: 16 / 9;
+  max-height: 100vh;
+  max-height: 100dvh;
+  container-type: size;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#game {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(16, 20, 42, 0.35);
+}
+
+#screen-loading {
+  background: rgba(16, 20, 42, 0.85);
+}
+
+.panel {
+  background: var(--cream);
+  border: 4px solid var(--ink);
+  border: 0.6cqh solid var(--ink);
+  border-radius: 24px;
+  border-radius: 3.5cqh;
+  padding: 3.5cqh 5cqh;
+  box-shadow: 0 1cqh 0 rgba(43, 35, 80, 0.35);
+  text-align: center;
+  max-width: 82cqw;
+}
+
+.panel.small {
+  min-width: 40cqw;
+}
+
+h1 {
+  margin: 0;
+  font-size: 40px;
+  font-size: 8.5cqh;
+  font-weight: normal;
+  color: var(--accent);
+  -webkit-text-stroke: 0.25cqh var(--ink);
+  paint-order: stroke fill;
+  letter-spacing: 0.02em;
+}
+
+h2 {
+  margin: 0 0 2cqh;
+  font-size: 32px;
+  font-size: 7cqh;
+  font-weight: normal;
+}
+
+.subtitle {
+  margin: 0.5cqh 0 2.5cqh;
+  font-size: 3.2cqh;
+  opacity: 0.8;
+}
+
+.howto {
+  list-style: none;
+  margin: 0 0 3cqh;
+  padding: 0;
+  font-size: 18px;
+  font-size: 3.6cqh;
+  line-height: 1.55;
+}
+
+.howto li::before {
+  content: '♪ ';
+  color: var(--accent);
+}
+
+.btn {
+  font-family: var(--font);
+  font-size: 20px;
+  font-size: 4.2cqh;
+  color: var(--ink);
+  background: var(--cream-2);
+  border: 0.5cqh solid var(--ink);
+  border-radius: 999px;
+  padding: 1.2cqh 4.5cqh;
+  cursor: pointer;
+  box-shadow: 0 0.6cqh 0 var(--ink);
+  transition: transform 0.06s ease;
+}
+
+.btn:active {
+  transform: translateY(0.5cqh);
+  box-shadow: 0 0.1cqh 0 var(--ink);
+}
+
+.btn:focus-visible {
+  outline: 0.6cqh solid var(--accent);
+  outline-offset: 0.4cqh;
+}
+
+.btn.primary {
+  background: var(--sky);
+  font-size: 5cqh;
+}
+
+.btn.tiny {
+  font-size: 2.6cqh;
+  padding: 0.6cqh 2cqh;
+  box-shadow: 0 0.4cqh 0 var(--ink);
+}
+
+.btn-row {
+  display: flex;
+  gap: 3cqh;
+  justify-content: center;
+  margin-top: 2cqh;
+}
+
+.best {
+  margin: 2.5cqh 0 0;
+  font-size: 3.4cqh;
+}
+
+.best strong {
+  color: var(--accent);
+  font-weight: normal;
+}
+
+.note {
+  margin: 1.5cqh 0 0;
+  font-size: 2.6cqh;
+  color: #8a4b2a;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(22cqh, auto));
+  gap: 1.5cqh 4cqh;
+  margin: 0 auto 1cqh;
+  font-size: 3.6cqh;
+}
+
+.stats div {
+  display: flex;
+  justify-content: space-between;
+  gap: 2cqh;
+}
+
+.stats dt {
+  opacity: 0.75;
+}
+
+.stats dd {
+  margin: 0;
+  color: var(--brown);
+}
+
+.new-best {
+  margin: 1cqh 0 0;
+  font-size: 4cqh;
+  color: var(--accent);
+}
+
+.loading-text {
+  margin: 0 0 2cqh;
+  font-size: 4cqh;
+}
+
+.progress {
+  height: 2.6cqh;
+  border: 0.4cqh solid var(--ink);
+  border-radius: 999px;
+  background: var(--cream-2);
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: #8bd36a;
+  transition: width 0.15s ease;
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1cqh;
+  margin: 0;
+  text-align: center;
+  font-size: 2.2cqh;
+  color: var(--cream);
+  text-shadow: 0 0 0.4cqh var(--ink), 0 0 0.4cqh var(--ink);
+  pointer-events: none;
+}
+
+#stage[data-screen='playing'] .footer {
+  display: none;
+}
+
+.sound-ctrl {
+  position: absolute;
+  right: 2cqh;
+  bottom: 2cqh;
+  display: flex;
+  align-items: center;
+  gap: 1.5cqh;
+  background: rgba(255, 250, 240, 0.85);
+  border: 0.4cqh solid var(--ink);
+  border-radius: 999px;
+  padding: 0.8cqh 2cqh;
+}
+
+.sound-ctrl input[type='range'] {
+  width: 18cqh;
+  accent-color: var(--accent);
+}
+
+#stage[data-screen='playing']:not([data-paused='true']) .sound-ctrl,
+#stage[data-screen='loading'] .sound-ctrl {
+  display: none;
+}
+
+/* 일시정지 아이콘 위 투명 클릭 영역 (아이콘은 캔버스가 그림) */
+.hit-pause {
+  position: absolute;
+  left: 94.2%;
+  top: 1%;
+  width: 5.4%;
+  height: 9.6%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  display: none;
+}
+
+#stage[data-screen='playing']:not([data-paused='true']) .hit-pause {
+  display: block;
+}
+
+/* 터치 버튼: 터치 기기에서 플레이 중일 때만 */
+#touch-controls {
+  display: none;
+}
+
+body.touch #stage[data-screen='playing']:not([data-paused='true']) #touch-controls {
+  display: block;
+}
+
+.touch-btn {
+  position: absolute;
+  bottom: 4cqh;
+  border-radius: 50%;
+  border: 0.7cqh solid var(--ink);
+  background: var(--sky) center / 86% no-repeat;
+  font-family: var(--font);
+  color: var(--cream);
+  touch-action: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 0 1.5cqh;
+  opacity: 0.92;
+  box-shadow: 0 0.8cqh 0 rgba(43, 35, 80, 0.5);
+}
+
+.touch-btn span {
+  font-size: 4.5cqh;
+  -webkit-text-stroke: 0.3cqh var(--ink);
+  paint-order: stroke fill;
+}
+
+.touch-btn:active {
+  transform: translateY(0.5cqh);
+}
+
+.touch-btn.dance {
+  right: 4cqh;
+  width: 26cqh;
+  height: 26cqh;
+}
+
+.touch-btn.bread {
+  left: 4cqh;
+  width: 18cqh;
+  height: 18cqh;
+  background-color: var(--cream-2);
+}
+
+/* 세로 화면 안내 */
+#rotate-hint {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: #10142a;
+  color: var(--cream);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 7vw;
+  padding: 16px;
+}
+
+@media (orientation: portrait) {
+  #rotate-hint {
+    display: flex;
+  }
+}
