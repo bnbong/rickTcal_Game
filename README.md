@@ -47,11 +47,21 @@ Pillow가 필요합니다(`pip install Pillow`). 입력은 `assets/concepts/2026
 
 ## 배포
 
-Cloudflare Pages에 정적 사이트로 배포합니다. 서버와 데이터베이스는 사용하지 않습니다.
+Cloudflare Workers의 정적 에셋 기능으로 배포합니다. 서버와 데이터베이스는 사용하지 않습니다. 설정은 `web/wrangler.jsonc`에 있습니다.
 
-- 루트 디렉터리: `web`
+### Git 연동
+
+Cloudflare 대시보드에서 Workers 프로젝트를 저장소와 연결하고 다음과 같이 설정합니다.
+
+- 루트 경로: `web`
 - 빌드 명령: `npm run build`
-- 출력 디렉터리: `dist`
+- 배포 명령: `npx wrangler deploy`
+- 비프로덕션 브랜치 배포 명령: `npx wrangler versions upload` (미리보기 URL이 만들어집니다)
+- 빌드 변수: `NODE_VERSION=22`
+
+### CLI 수동 배포
+
+처음 한 번 `npx wrangler login`으로 로그인한 뒤, `web` 디렉터리에서 `npm run deploy`를 실행합니다. 빌드 후 `dist`를 배포합니다.
 
 ## 폴더 구조
 
